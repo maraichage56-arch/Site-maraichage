@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez nos légumes bio et produits de la ferme.">
+  <title>Les légumes du jardin — Bio</title>
+  <style>
+    :root {
+      --green: #245b36;
+      --green-dark: #174629;
+      --green-soft: #e5f1df;
+      --cream: #f5f7ef;
+      --text: #253b2c;
+      --muted: #667568;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; background: var(--cream); color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    header {
+      background: rgba(255,255,255,.96); border-top: 5px solid var(--green);
+      border-bottom: 1px solid #dce6d5; position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 3px 12px rgba(30,60,35,.06);
+    }
+    .header-inner { max-width: 1120px; margin: auto; padding: 12px 20px; }
+    .brand-row { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    h1 { margin:0; color:var(--green); font-size:clamp(1.35rem, 3vw, 2rem); }
+    .subtitle { margin:4px 0 0; color:var(--muted); font-size:.9rem; }
+    .date { font-family: Arial, sans-serif; color:var(--green-dark); background:var(--green-soft); border-radius:999px; padding:8px 12px; font-size:.86rem; }
+    .bio-banner {
+      max-width:1080px; margin:18px auto 0; padding:14px 18px; border-radius:14px;
+      background:#e7f2df; border:1px solid #c7dfbc; display:flex; align-items:center; gap:12px;
+    }
+    .bio-mark { font-size:1.8rem; }
+    .bio-banner strong { color:var(--green-dark); }
+    .bio-banner p { margin:3px 0 0; font-size:.9rem; color:#506553; }
+    main { max-width:1080px; margin:auto; padding:0 18px 48px; }
+    .quick-links { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 34px; }
+    .quick-links a {
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--green-dark);
+      background:white; border:1px solid #dce6d5; border-radius:12px; padding:13px;
+      font-weight:bold; transition:transform .15s, box-shadow .15s;
+    }
+    .quick-links a:hover { transform:translateY(-2px); box-shadow:0 5px 14px #254b3017; }
+    .quick-links .emoji { font-size:1.5rem; }
+    .section { margin-top:30px; scroll-margin-top:150px; }
+    .section-heading { display:flex; align-items:center; gap:12px; border-bottom:1px solid #d7e2d0; padding:0 0 10px; margin-bottom:16px; }
+    .section-heading .emoji { font-size:1.7rem; }
+    .section-heading h2 { margin:0; font-size:1.45rem; color:var(--green); }
+    .section-heading p { margin:3px 0 0; color:var(--muted); font-size:.82rem; }
+    .products { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+    .product {
+      background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 16px rgba(30,60,35,.08);
+      display:flex; flex-direction:column; min-width:0;
+    }
+    .product img { display:block; width:100%; height:150px; object-fit:cover; background:#edf1e8; color:#526553; font-family:Arial,sans-serif; font-size:.8rem; }
+    .product-body { padding:13px; display:flex; flex-direction:column; flex:1; }
+    .product h3 { margin:0 0 7px; color:#234a30; font-size:1.06rem; }
+    .description { color:#657267; font-family:Arial,sans-serif; font-size:.82rem; line-height:1.45; margin:0 0 13px; flex:1; }
+    .price { font-family:Arial,sans-serif; font-weight:bold; color:var(--green-dark); margin:0 0 9px; font-size:.95rem; }
+    .availability { align-self:flex-start; border-radius:999px; padding:5px 9px; font: .72rem Arial,sans-serif; font-weight:bold; }
+    .available { background:#e5f3df; color:#286236; }
+    .unavailable { background:#fbe5e2; color:#9b3027; }
+    footer { text-align:center; padding:22px 16px; background:#eaf0e4; color:#607060; font-size:.85rem; }
+    @media (max-width:850px) { .products { grid-template-columns:repeat(3,minmax(0,1fr)); } .quick-links { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:560px) {
+      .products { grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+      .product img { height:120px; }
+      .product-body { padding:10px; }
+      .product h3 { font-size:.98rem; }
+      .description { font-size:.78rem; }
+      .quick-links a { padding:10px; font-size:.85rem; }
+      .bio-banner { margin-left:12px; margin-right:12px; }
+    }
+    @media (max-width:360px) { .products { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand-row">
+      <div>
+        <h1>🌱 Les légumes du jardin</h1>
+        <p class="subtitle">Des produits frais, locaux et bio</p>
+      </div>
+      <div class="date" id="date-du-jour">Chargement de la date…</div>
+    </div>
+  </div>
+</header>
+
+<div class="bio-banner">
+  <span class="bio-mark">🌿</span>
+  <div><strong>Des légumes cultivés avec soin</strong><p>Notre sélection de légumes et produits de la ferme, au rythme des récoltes.</p></div>
+</div>
+
+<main>
+  <nav class="quick-links" aria-label="Catégories de produits">
+    <a href="#legumes-racines"><span class="emoji">🥕</span><span>Légumes-racines</span></a>
+    <a href="#tomates"><span class="emoji">🍅</span><span>Tomates</span></a>
+    <a href="#legumes-fruits"><span class="emoji">🥒</span><span>Légumes-fruits</span></a>
+    <a href="#salades-feuilles-choux"><span class="emoji">🥬</span><span>Salades, feuilles et choux</span></a>
+    <a href="#legumineuses-ferme"><span class="emoji">🫛</span><span>Légumineuses et produits de la ferme</span></a>
+  </nav>
+
+  <div id="catalogue"></div>
+</main>
+<footer>🌱 Merci de soutenir les récoltes du jardin !</footer>
+
+<script>
+/*
+  MODIFIER FACILEMENT LES PRODUITS :
+  - disponible: true  => badge « ✓ Disponible »
+  - disponible: false => badge « ✕ Indisponible »
+  - prix: change le prix affiché
+  - image: nom du fichier dans le dossier images/
+  Pour changer la date, rien à faire : elle se met à jour automatiquement.
+*/
+const categories = [
+  {
+    id: "legumes-racines", titre: "Légumes-racines", emoji: "🥕",
+    sousTitre: "Des légumes croquants et de saison",
+    produits: [
+      { nom:"Carottes", emoji:"🥕", image:"carotte.webp", description:"Douces et croquantes, elles apportent une jolie note colorée à vos recettes.", prix:"2,50 € / kg", disponible:false },
+      { nom:"Radis", emoji:"🌱", image:"radis.webp", description:"Petits, croquants et légèrement relevés, ils sont parfaits à déguster bien frais.", prix:"2,00 € / botte", disponible:true }
+    ]
+  },
+  {
+    id: "tomates", titre: "Tomates", emoji: "🍅",
+    sousTitre: "Nos différentes variétés",
+    produits: [
+      { nom:"Tomate cœur de bœuf", emoji:"💗", image:"coeur de boeuf.webp", description:"Une tomate généreuse et charnue, parfaite pour les belles salades estivales.", prix:"5,00 € / kg", disponible:false },
+      { nom:"Tomates cerises", emoji:"🍒", image:"Tomates cerises.webp", description:"De petites bouchées pleines de fraîcheur, idéales à picorer ou à ajouter aux salades.", prix:"4,50 € / kg", disponible:true },
+      { nom:"Tomates jaunes", emoji:"🧡", image:"tomate jaune.webp", description:"Douces et lumineuses, elles donnent une belle couleur à vos assiettes.", prix:"4,00 € / kg", disponible:true }
+    ]
+  },
+  {
+    id: "legumes-fruits", titre: "Légumes-fruits", emoji: "🥒",
+    sousTitre: "Des légumes colorés et gourmands",
+    produits: [
+      { nom:"Courgettes", emoji:"🥒", image:"courgettes.webp", description:"Tendres et délicates, les courgettes se cuisinent aussi bien grillées qu'en poêlée.", prix:"2,50 € / kg", disponible:true },
+      { nom:"Courgettes jaunes", emoji:"🧡", image:"courgette jaune.webp", description:"Douces et colorées, elles apportent une touche ensoleillée à vos préparations.", prix:"3,00 € / kg", disponible:false },
+      { nom:"Aubergines", emoji:"🍆", image:"aubergine.webp", description:"Savoureuses et généreuses, elles sont parfaites pour les recettes de saison.", prix:"3,00 € / kg", disponible:true },
+      { nom:"Concombres", emoji:"🥒", image:"concombre.webp", description:"Croquants et rafraîchissants, ils sont idéals pour une salade légère.", prix:"1,50 € / pièce", disponible:false },
+      { nom:"Cornichons", emoji:"🥒", image:"cornichon.webp", description:"Petits et croquants, ils relèvent agréablement les apéritifs et les assiettes.", prix:"5,00 € / kg", disponible:true },
+      { nom:"Poivrons", emoji:"🫑", image:"poivrons.webp", description:"Doux et colorés, ils égayent vos assiettes avec leurs belles couleurs.", prix:"4,00 € / kg", disponible:true },
+      { nom:"Piments", emoji:"🌶️", image:"piments.webp", description:"Une touche relevée pour donner du caractère à vos recettes.", prix:"5,00 € / kg", disponible:true }
+    ]
+  },
+  {
+    id: "salades-feuilles-choux", titre: "Salades, feuilles et choux", emoji: "🥬",
+    sousTitre: "Fraîcheur et verdure au quotidien",
+    produits: [
+      { nom:"Épinards", emoji:"🌿", image:"épinard.webp", description:"De jeunes feuilles pleines de fraîcheur, parfaites en salade ou cuisinées.", prix:"3,50 € / kg", disponible:true },
+      { nom:"Salade", emoji:"🥗", image:"laitue.webp", description:"Fraîchement récoltée, elle offre une belle fraîcheur et accompagne tous vos repas.", prix:"1,50 € / pièce", disponible:false },
+      { nom:"Laitue", emoji:"🥬", image:"laitue.webp", description:"Tendre et légère, la laitue accompagne facilement les repas de tous les jours.", prix:"1,50 € / pièce", disponible:true },
+      { nom:"Chou", emoji:"🥬", image:"chou.webp", description:"Un légume généreux et polyvalent, à cuisiner selon toutes vos envies.", prix:"2,50 € / pièce", disponible:false },
+      { nom:"Brocoli", emoji:"🥦", image:"brocoli.webp", description:"De beaux bouquets verts à savourer simplement cuits ou dans vos recettes.", prix:"4,00 € / kg", disponible:true }
+    ]
+  },
+  {
+    id: "legumineuses-ferme", titre: "Légumineuses et produits de la ferme", emoji: "🫛",
+    sousTitre: "Les autres produits disponibles",
+    produits: [
+      { nom:"Haricots verts", emoji:"🫛", image:"harico vert.webp", description:"Fins et croquants, ils apportent tout le goût d'une récolte fraîche.", prix:"5,00 € / kg", disponible:true },
+      { nom:"Haricots blancs", emoji:"🫘", image:"harico blanc.webp", description:"Des grains généreux à préparer dans de nombreux plats familiaux.", prix:"4,00 € / kg", disponible:false },
+      { nom:"Œufs", emoji:"🥚", image:"oeuf.webp", description:"Des œufs frais, soigneusement ramassés pour vous offrir une belle qualité au quotidien.", prix:"3,50 € / 6 œufs", disponible:true }
+    ]
+  }
+];
+
+function afficherCatalogue() {
+  const catalogue = document.getElementById("catalogue");
+  catalogue.innerHTML = categories.map(categorie => `
+    <section class="section" id="${categorie.id}">
+      <div class="section-heading">
+        <span class="emoji">${categorie.emoji}</span>
+        <div><h2>${categorie.titre}</h2><p>${categorie.sousTitre}</p></div>
+      </div>
+      <div class="products">
+        ${categorie.produits.map(produit => `
+          <article class="product">
+            <img src="images/${produit.image}" alt="${produit.nom}" loading="lazy"
+                 onerror="if (!this.dataset.fallback) { this.dataset.fallback='1'; this.src='${'${produit.image}'}'; }">
+            <div class="product-body">
+              <h3>${produit.emoji} ${produit.nom}</h3>
+              <p class="description">${produit.description}</p>
+              <p class="price">${produit.prix}</p>
+              <span class="availability ${produit.disponible ? "available" : "unavailable"}">
+                ${produit.disponible ? "✓ Disponible" : "✕ Indisponible"}
+              </span>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+}
+
+function afficherDate() {
+  const maintenant = new Date();
+  document.getElementById("date-du-jour").textContent =
+    maintenant.toLocaleDateString("fr-FR", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+}
+afficherDate();
+afficherCatalogue();
+</script>
+</body>
+</html>
